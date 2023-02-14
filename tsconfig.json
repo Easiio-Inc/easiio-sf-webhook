@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "es2016",
     "module": "commonjs",
     "lib": ["es6", "dom"],
     "sourceMap": true,
@@ -13,6 +13,7 @@
     "strictPropertyInitialization": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
+    "allowJs": true,
     "noUnusedLocals": true,
     "noUnusedParameters": false,
     "noImplicitReturns": false,
@@ -29,7 +30,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "node_modules/**/*.js"],
   "include": ["src/**/*.ts", "src/**/*.d.ts"],
   "ts-node": {
     "transpileOnly": true,

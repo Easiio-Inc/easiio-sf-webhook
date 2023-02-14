@@ -14,8 +14,16 @@ import { retJSON } from "@/untils/retJSON";
 import express, { Request, Response, NextFunction } from "express";
 import indexRouter from "@/router/index";
 import { AsyncMysql } from "@/sql";
+import { RPCClientManager } from "@/service/rpcManager";
+import { RPCScriptClient } from "@/service/rpcClient";
 
 AsyncMysql.getConnection();
+//连接webRPC服务
+global.scriptRPCClient = new RPCClientManager(process.env.RPC_SCRIPT_URL);
+global.scriptRPCClient.instance.on("open", async function () {
+  console.log("RPCWebClient connected");
+  RPCScriptClient.setClient(global.scriptRPCClient);
+});
 
 const app = express();
 
