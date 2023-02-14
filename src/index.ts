@@ -10,8 +10,12 @@ moduleAlias.addAlias("@", __dirname);
 
 import morgan from "morgan";
 
+import { retJSON } from "@/untils/retJSON";
 import express, { Request, Response, NextFunction } from "express";
 import indexRouter from "@/router/index";
+import { AsyncMysql } from "@/sql";
+
+AsyncMysql.getConnection();
 
 const app = express();
 
@@ -28,15 +32,13 @@ app.use(
 app.use("/", indexRouter);
 
 app.use((req, res, next) => {
-  res.end("Not Found Page");
+  return retJSON(res, 404, "Not Found Page");
 });
 
 app.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
   let msg = err.message || "null";
   if (msg == "null") console.log(err);
-
-  res.status(500);
-  res.end(`Error:${msg}`);
+  return retJSON(res, 500, `Error:${msg}`);
 });
 app.listen(parseInt(process.env.PORT), "0.0.0.0", function () {
   console.log("server listening on port " + process.env.PORT);
