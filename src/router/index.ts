@@ -12,7 +12,7 @@ router.all(
   query("uuid").isUUID(),
   checkValidation,
   checkAuth,
-  async (req, res, next) => {
+  async (req, res) => {
     return retJSON(res, 200, "success", req.webhook.webhookName);
   }
 );
@@ -20,10 +20,10 @@ router.all(
 router.all(
   "/webhook-test/:uuid",
   header("Authorization").isString(),
-  query("uuid").isUUID(),
+  // query("uuid").isUUID(),
   checkValidation,
   checkAuth,
-  async (req, res, next) => {
+  async (req, res) => {
     return retJSON(res, 200, "success", req.webhook.webhookName);
   }
 );

@@ -10,7 +10,7 @@ export const checkAuth = async (
 
   const connection = await AsyncMysql.getConnection();
   const dbdata = await AsyncMysql.query(connection, sql, req.params.uuid, true);
-
+  console.log(dbdata);
   if (dbdata.length !== 1) return retJSON(res, 500, "error url");
   const webhook = dbdata[0];
 
@@ -19,5 +19,6 @@ export const checkAuth = async (
   if (req.get("Authorization") !== webhook.auth)
     return retJSON(res, 500, "error auth");
   req.webhook = webhook;
+
   return next();
 };

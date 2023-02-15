@@ -9,4 +9,5 @@ export const checkValidation = (
   const errArray = validationResult(req).array();
   if (errArray.length > 0)
     throw new Error(`${errArray[0].param}:${errArray[0].msg}`);
+  return next();
 };
