@@ -20,7 +20,7 @@ router.all(
 router.all(
   "/webhook-test/:uuid",
   header("Authorization").isString(),
-  // query("uuid").isUUID(),
+  query("uuid").isUUID(),
   checkValidation,
   checkAuth,
   async (req, res) => {
