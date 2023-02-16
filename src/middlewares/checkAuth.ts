@@ -24,7 +24,7 @@ export const checkAuth = async (
     }
   }
   if (issueId === 0 || userId === "") {
-    return retJSON(res, 500, "error parames");
+    return retJSON(res, 500, "error parames issueId or userId");
   }
   const sql = "select * from webhook where url = ?;";
   const connection = await AsyncMysql.getConnection();
