@@ -1,5 +1,5 @@
 declare namespace Express {
   interface Request {
-    webhook?: any;
+    integration?: any;
   }
 }

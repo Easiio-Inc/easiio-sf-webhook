@@ -13,7 +13,7 @@ router.all(
   checkValidation,
   checkAuth,
   async (req, res) => {
-    return retJSON(res, 200, "success", req.webhook.webhookName);
+    return retJSON(res, 200, "success", req.integration.topic);
   }
 );
 
@@ -24,7 +24,7 @@ router.all(
   checkValidation,
   checkAuth,
   async (req, res) => {
-    return retJSON(res, 200, "success", req.webhook.webhookName);
+    return retJSON(res, 200, "success", req.integration.topic);
   }
 );
 

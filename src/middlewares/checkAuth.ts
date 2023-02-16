@@ -26,20 +26,20 @@ export const checkAuth = async (
   if (issueId === 0 || userId === "") {
     return retJSON(res, 500, "error parames issueId or userId");
   }
-  const sql = "select * from webhook where url = ?;";
+  const sql = "select * from integration where key = ?;";
   const connection = await AsyncMysql.getConnection();
   const dbdata = await AsyncMysql.query(connection, sql, req.params.uuid, true);
   if (dbdata.length !== 1) return retJSON(res, 500, "error url");
-  const webhook = dbdata[0];
+  const integration = dbdata[0];
 
-  if (req.method !== webhook.httpMethod)
-    return retJSON(res, 500, "error httpMethod");
-  if (req.get("Authorization") !== webhook.auth)
-    return retJSON(res, 500, "error auth");
-  req.webhook = webhook;
-  if (webhook.scriptId && webhook.scriptId !== 0) {
+  // if (req.method !== webhook.httpMethod)
+  //   return retJSON(res, 500, "error httpMethod");
+  // if (req.get("Authorization") !== webhook.auth)
+  //   return retJSON(res, 500, "error auth");
+  req.integration = integration;
+  if (integration.scriptId && integration.scriptId !== 0) {
     RPCScriptClient.call("runScriptById", {
-      scriptId: webhook.scriptId,
+      scriptId: integration.scriptId,
       issueId: issueId,
       userId: userId,
     }).catch(thirdPartyErrorHandler);
