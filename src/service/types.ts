@@ -3,6 +3,14 @@ interface RPCMethod<P, R> {
   return: R;
 }
 
+export type RunScriptResult = {
+  success: boolean;
+  log: string;
+};
+
 export interface RPCScriptAPI {
-  test: RPCMethod<{ projectId: number }, number[]>;
+  runScriptById: RPCMethod<
+    { scriptId: number; issueId: number; userId: string },
+    RunScriptResult
+  >;
 }
